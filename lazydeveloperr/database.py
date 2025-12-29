@@ -32,10 +32,11 @@ class Database:
         return count
 
     async def get_all_users(self):
-        return self.col.find({})
+        all_users = self.col.find({})
+        return all_users
 
     async def delete_user(self, user_id):
-        await self.col.delete_many({'id': int(user_id)})
+        await self.col.delete_many({'_id': int(user_id)})
 
     async def set_session(self, id, session):
         await self.col.update_one({'id': int(id)}, {'$set': {'session': session}})
@@ -43,6 +44,7 @@ class Database:
     async def get_session(self, id):
         user = await self.col.find_one({'id': int(id)})
         return user['session']
+    
 # ───────────── BUTTONS ─────────────
     async def get_buttons(self):
         return await self.buttons.find().to_list(None)
