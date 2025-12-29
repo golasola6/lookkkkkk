@@ -196,6 +196,28 @@ async def home_handler(c, cb):
     except Exception as e:
         print(e)
 
+@Client.on_callback_query(filters.regex("about_bot"))
+async def about_handler(c, cb):
+    about_text = """
+👑 <b>Owner</b>: <a href='https://t.me/directapkpromo'>SimplyfyTuber</a>
+🛠 <b>Developer:</b> <a href='https://telegram.me/LazyDeveloperr'>LazyDeveloperr</a>
+
+🧠 <b>Powered By:</b> Pyrogram & MongoDB  
+🔐 <b>Secure:</b> Auth-based Admin Panel & Dynamic Buttons
+
+—
+🧡 <b>Made with love by LazyDeveloper</b>
+    """
+    lazydeveloper_btn = [[
+            InlineKeyboardButton('ཫ𐰌𓇽 HOME 𓇽𐰌ཀ', callback_data="home")
+        ]]
+    await cb.message.edit_text(
+                            about_text,
+                            reply_markup=InlineKeyboardMarkup(lazydeveloper_btn),
+                            disable_web_page_preview=True,
+                            parse_mode=enums.ParseMode.HTML
+                            )
+
 
 @Client.on_message(
     filters.text
