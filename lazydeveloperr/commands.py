@@ -53,7 +53,7 @@ async def start_handler(c, m):
             reply_markup=InlineKeyboardMarkup(final_keyboard)
         )
 
-@Client.on_message(filters.command('accept') & filters.private)
+@Client.on_message(filters.command('accept') & filters.private & filters.user(ADMINS))
 async def accept(client, message):
     show = await message.reply("**Please Wait.....**")
     user_data = await db.get_session(message.from_user.id)
@@ -218,7 +218,6 @@ async def about_handler(c, cb):
                             parse_mode=enums.ParseMode.HTML
                             )
 
-
 @Client.on_message(
     filters.text
     & filters.user(ADMINS)
@@ -261,8 +260,6 @@ async def admin_text_handler(client, message):
 
         await message.reply_text(f"✅ {inserted} button(s) saved.")
         client.add_btn_state = None
-
-
 
 @Client.on_chat_join_request()
 async def req_accept(client, m):
