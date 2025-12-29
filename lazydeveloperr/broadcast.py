@@ -14,6 +14,7 @@ logger.setLevel(logging.INFO)
 async def broadcast_handler(bot: Client, m: Message):
     if (m.reply_to_message): 
         all_users = await db.get_all_users()
+        print(f"{all_users}")
         broadcast_msg = m.reply_to_message
         sts_msg = await m.reply_text("Bʀᴏᴀᴅᴄᴀꜱᴛ Sᴛᴀʀᴛᴇᴅ..!") 
         done = 0
@@ -22,7 +23,7 @@ async def broadcast_handler(bot: Client, m: Message):
         start_time = time.time()
         total_users = await db.total_users_count()
         async for user in all_users:
-            sts = await send_msg(user['_id'], broadcast_msg)
+            sts = await send_msg(user['id'], broadcast_msg)
             if sts == 200:
                success += 1
             else:
